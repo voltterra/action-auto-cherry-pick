@@ -1,7 +1,7 @@
 name: 'PR Cherry Pick'
 description:
     'Cherry-picks commits from a merged PR, creating a new PR to a target branch'
-author: 'voltt'
+author: 'voltterra'
 
 branding:
     icon: 'copy'

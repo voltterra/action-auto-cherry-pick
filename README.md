@@ -6,6 +6,8 @@ also match the `target-branch`.
 
 Check [action.yml](action.yml) for a description of inputs and outputs.
 
+
+TODO: Update the sample with added parameters
 ### Configuration sample
 
 ```yaml
@@ -44,3 +46,7 @@ jobs:
           echo "The created PR number is ${{
           steps.cherry-pick.outputs.pr-number }}"
 ```
+
+
+## Original authors
+TODO: Add the link to the original repository
