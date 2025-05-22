@@ -1,11 +1,11 @@
 name: 'PR Cherry Pick'
 description:
     'Cherry-picks commits from a merged PR, creating a new PR to a target branch'
-author: 'wireapp'
+author: 'voltt'
 
 branding:
     icon: 'copy'
-    color: 'purple'
+    color: 'green'
 
 inputs:
     target-branch:
@@ -30,6 +30,19 @@ inputs:
             assignee of the original PR by default'
         required: false
         default: ''
+    pr-new-branch:
+        description:
+            '(optional) The branch name that will contain cherry-picked commits.
+            Default is original branch name + "cherry-pick" suffix. When set,
+            the pr-branch-suffix input is skipped'
+        required: false
+        default: ''
+    pr-branch-suffix:
+        description:
+            '(optional) The suffix for pr-new-branch name or the merged branch name.
+            Default is "-cherry-pick"'
+        required: false
+        default: '-cherry-pick'
     pr-labels:
         description:
             'Comma-separated list of labels to add to this PR. Empty by default'

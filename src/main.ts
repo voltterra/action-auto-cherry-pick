@@ -36,6 +36,8 @@ export async function run(): Promise<void> {
         const submodulesTargetBranch = core.getInput('submodules-target-branch')
         const githubToken = core.getInput('pr-creator-token')
         const prTitleSuffix = core.getInput('pr-title-suffix').trim()
+        const prBranchSuffix = core.getInput('pr-branch-suffix').trim()
+        let prNewBranch = core.getInput('pr-new-branch')
         let prAssignee = core.getInput('pr-assignee')
         if (prAssignee === '' && mergedPR.assignee != null) {
             // Use the assignee of the original PR as the assignee of the cherry-pick
@@ -47,6 +49,10 @@ export async function run(): Promise<void> {
             addedLabels = labelsInput.split(',')
         }
 
+        if (prNewBranch === '') {
+            prNewBranch = mergedPR.head.ref + prBranchSuffix
+        }
+
         // GH Actions bot email address
         // https://github.com/orgs/community/discussions/26560#discussioncomment-3252339
         const commitAuthorName = 'GitHub Actions'
@@ -54,10 +60,8 @@ export async function run(): Promise<void> {
             '41898282+github-actions[bot]@users.noreply.github.com'
 
         const shouldFastForwardSubmodules = submodulesTargetBranch !== ''
-        const newBranchSuffix = '-cherry-pick'
 
-        const originalBranch = mergedPR.head.ref
-        const newBranchName = originalBranch + newBranchSuffix
+        const newBranchName = prNewBranch
 
         const changedFilePaths = await getListOfChangedFilePaths(targetBranch)
 
@@ -70,7 +74,8 @@ export async function run(): Promise<void> {
             )
             return
         }
-        const tempBranchName = 'temp-branch-for-cherry-pick'
+        // TODO: Not tested
+        const tempBranchName = `${prNewBranch}-temp-for-cherry-pick`
         if (shouldFastForwardSubmodules) {
             await fastForwardSubmodules(
                 tempBranchName,
