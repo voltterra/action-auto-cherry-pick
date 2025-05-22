@@ -1,6 +1,6 @@
-name: 'PR Cherry Pick'
+name: 'Cherry pick to branch on PR'
 description:
-    'Cherry-picks commits from a merged PR, creating a new PR to a target branch'
+    'Cherry-picks commits from a merged PR, creating a new PR to a target branch using a new temp pr branch'
 author: 'voltterra'
 
 branding:
